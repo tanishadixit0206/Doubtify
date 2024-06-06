@@ -1,0 +1,91 @@
+/* Overall Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container { /* New container for layout */
+    max-width: 500px; /* Limit form width */
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+/* Form Styling */
+.reg_form {
+    width: 100%;
+     /* Form stretches to container width */
+}
+
+.input-container {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container label {
+    width: 120px; /* Consistent label width */
+    margin-right: 10px;
+    text-align: right; /* Align labels to the right */
+    font-weight: bold;
+}
+
+.input-container input {
+    flex: 1; /* Input takes remaining space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.input-container input:focus {
+    border-color: #3399FF; /* Blue highlight on focus */
+}
+
+.submit-btn {
+    margin: auto;
+    background-color: #3399FF; /* Blue button color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 15px; /* Add margin for spacing */
+}
+
+.submit-btn:hover {
+    background-color: #2EAAC1; /* Slightly darker blue on hover */
+}
+
+/* Error Message Styling */
+.error-message {
+    display: none;
+    color: #ff0000;
+    font-size: 12px;
+    position: absolute;
+}
