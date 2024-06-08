@@ -3,13 +3,19 @@ import bodyParser from 'body-parser';
 import { hash, compare } from 'bcrypt';
 import pg from 'pg';
 import jsonwebtoken from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import  authenticate  from './middleware/Authenticate.js';
+import cookieParser from 'cookie-parser';
 
-const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd"
+// dotenv.config()
 
 const app = express();
 const port = 3001;
+app.use(cookieParser())
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }))
+
+const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd"
 
 const db = new pg.Client({
     user: "postgres",
@@ -68,9 +74,10 @@ app.post("/home",async (req,res)=>{
         const isMatch = await compare(password, user.hash_pass);
         if(isMatch){
             console.log("User logged in successfully!");
-            const token  = jsonwebtoken.sign({id:email,nickname : user.user_nickname},JWT_SECRET)
-            console.log(token)
-            localStorage.setItem('token',token)
+            const token  = jsonwebtoken.sign({id:email,nickname : user.user_nickname},JWT_SECRET,{expiresIn:"3h"})
+            res.cookie("token",token,{
+                httpOnly:true,
+            })
             res.render("home.ejs",{nickname : user.user_nickname});
         }
     }   
@@ -80,11 +87,9 @@ app.post("/home",async (req,res)=>{
     }
 })
 
-app.get("/profile",(req,res)=>{
-
-    const { token } = localStorage.getItem('token')
-    const user = jsonwebtoken.verify(token,JWT_SECRET)
-    console.log(user);
+app.get("/profile" ,authenticate ,(req,res)=>{
+    console.log(req.body)
+    res.render("profile.ejs")
 })
 
 app.listen(port, () => {
