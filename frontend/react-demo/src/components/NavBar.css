@@ -1,0 +1,40 @@
+.custom-navbar {
+    background-color: rgb(113, 44, 249) !important;
+}
+
+.custom-navbar-text,
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.custom-navbar .dropdown-item {
+    color: white !important;
+
+}
+
+.custom-navbar-text {
+    font-size: xx-large;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+.custom-navbar-text1{
+    font-family: "Noto Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+
+.custom-navbar .dropdown-menu {
+    background-color: rgb(113, 44, 249);
+}
+
+.custom-navbar .dropdown-item:hover {
+    background-color: rgb(170, 127, 255);
+}
+.btn-nav{
+    color: white;
+
+}
+.btn-nav:hover{
+    color: rgb(113, 44, 249);
+}

@@ -1,0 +1,9 @@
+.btn-tile{
+    color: rgb(113, 44, 249);
+    border-color: rgb(113, 44, 249);
+}
+.btn-tile:hover{
+    color: white;
+    border-color:white;
+    background-color:rgb(113, 44, 249);
+}

@@ -1,0 +1,31 @@
+
+  .login-h3{
+    font-family: "Noto Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.2rem;
+  }
+  .login-h1{
+    font-size:4rem;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(113, 44, 249);
+  }
+  .login-input{
+    font-family: "Noto Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.2rem;
+    border-radius: 2%;
+    border: 1px solid  rgb(113, 44, 249) ;
+  }
+  .login-btn{
+    font-family: "Noto Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.2rem;
+  }
