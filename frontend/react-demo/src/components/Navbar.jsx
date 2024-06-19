@@ -6,8 +6,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css'; 
+import { useLogout } from '../hooks/UseLogout';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/UseAuthContext';
+
 
 function NavBar() {
+  var {user} = useAuthContext()
+  console.log(user)
+  const navigate= useNavigate()
+  const logout = useLogout()
+  const handleClick = ()=>{
+    logout()
+    navigate("/")
+  }
   return (
     <Navbar expand="lg" className="custom-navbar py-3">
       <Container fluid>
@@ -36,6 +48,7 @@ function NavBar() {
             />
             <Button className='btn-nav' variant="outline-light">Search</Button>
           </Form>
+          {user ?  <Button onClick={handleClick} className='btn-nav mx-1' variant="outline-light">Logout</Button>:null}
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -19,11 +19,10 @@ function LoginForm() {
     const [error,setError] = useState("")
 
     async function handleSubmit(event) {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault(); 
     
         const {email, password} = user;
     
-        // Basic client-side validation (optional; consider a validation library)
         if (!email || !password) {
           setError("Please fill in all fields.");
           return;
@@ -34,7 +33,7 @@ function LoginForm() {
     
           if (response.data.auth) {
             localStorage.setItem("token",response.data.token)
-            dispatch({type:'LOGIN',payload:response.data.auth})
+            dispatch({type:'LOGIN',payload:response.data})
             // Handle successful registration (e.g., navigate to login page, show success message)
             navigate("/home");
           } else {

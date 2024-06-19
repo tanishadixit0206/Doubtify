@@ -3,34 +3,39 @@ import { db } from "../connection.js";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
-
+import { requireAuth } from "../middleware/requireAuth.js";
 const router = express();
 
 const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd";
 
 
-router.post("/register",async (req,res)=>{
-  const email = req.body.email
-  const pass1 = req.body.password
-  const pass2 = req.body.repassword
-  const user = req.body.username
-  const hashin = await bcrypt.hash(pass1,10)
-  if(pass1 === pass2){
-      try {
-          await db.query("INSERT INTO users (username, hash_pass, user_nickname) VALUES ($1, $2, $3)", [email, hashin, user]);
-          console.log("User created successfully")
-          res.send("user created successfully")
-      } catch (error) {
-          console.log("code fatt gya")
-          console.log(error.message)
-          res.send("user not created successfully")
+router.post("/register", async (req, res) => {
+    const email = req.body.email;
+    const pass1 = req.body.password;
+    const pass2 = req.body.repassword;
+    const user = req.body.username;
+  
+    if (pass1 !== pass2) {
+      return res.send("Passwords do not match!");
+    }
+  
+    try {
+      const duplicateCheck = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+      if (duplicateCheck.rows.length > 0) {
+        return res.send("User with this email already exists!");
       }
-  }
-  else{
-      console.log("User created not successful")
-      res.send("user not created successfully")
-  }
-})
+  
+      const hashedPassword = await bcrypt.hash(pass1, 10);
+  
+      await db.query("INSERT INTO users (username, hash_pass, user_nickname) VALUES ($1, $2, $3)", [email, hashedPassword, user]);
+      console.log("User created successfully");
+      res.send("User created successfully!"); 
+    } catch (error) {
+      console.error("Error creating user:", error.message);
+      res.status(500).send("Error creating user. Please try again later."); 
+    }
+  });
+  
 
 router.post("/login",async (req,res)=>{
   const email = req.body.email
@@ -47,7 +52,7 @@ router.post("/login",async (req,res)=>{
           res.cookie("token",token,{
               httpOnly:true,
           })
-          res.json({auth:true,token:token})
+          res.json({email:email,auth:true,token:token})
       }
       else{
           res.json({auth:false,message:"Invalid login credentials"})
@@ -59,24 +64,8 @@ router.post("/login",async (req,res)=>{
   }
 })
 
-const verifyJWT=(req,res,next)=>{
-  const token = req.headers["x-access-token"]
-  if(!token){
-      res.send("get a token please")
-  }
-  if(token){
-      jsonwebtoken.verify(token,JWT_SECRET,(err,decoded)=>{
-          if(err){
-              res.json({auth:false,message:"failed to authenticate"})
-          }
-          else{
-              next();
-          }
-      })
-  }
-}
 
-router.get("/isUserVerified" ,verifyJWT ,(req,res)=>{
+router.get("/isUserVerified" ,requireAuth ,(req,res)=>{
   res.send("you are authorised!")
 })
 

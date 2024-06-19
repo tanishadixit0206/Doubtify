@@ -8,7 +8,7 @@ import path from "path";
 import mongoose from "mongoose";
 import { router as UserRoutes } from "./routes/User.js";
 import { router as UserLogin } from "./routes/Login.js";
-
+import {requireAuth}  from './middleware/requireAuth.js';
 // dotenv.config()
 
 const app = express();
