@@ -19,7 +19,6 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.json());
 
-const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd"
 
 db.connect()
 

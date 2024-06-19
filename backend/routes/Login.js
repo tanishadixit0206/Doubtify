@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import { requireAuth } from "../middleware/requireAuth.js";
 const router = express();
 
-const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd";
+dotenv.config()
 
 
 router.post("/register", async (req, res) => {
@@ -48,7 +48,7 @@ router.post("/login",async (req,res)=>{
       const isMatch = await bcrypt.compare(password, user.hash_pass);
       if(isMatch){
           console.log("User logged in successfully!");
-          const token  = jsonwebtoken.sign({id:email,nickname : user.user_nickname},JWT_SECRET,{expiresIn:"3h"})
+          const token  = jsonwebtoken.sign({id:email,nickname : user.user_nickname},process.env.JWT_SECRET,{expiresIn:"3h"})
           res.cookie("token",token,{
               httpOnly:true,
           })
