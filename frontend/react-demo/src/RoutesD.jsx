@@ -9,7 +9,6 @@ import { useAuthContext } from "./hooks/UseAuthContext";
 
 function RoutesD() {
   const { user } = useAuthContext()
-  console.log(user)
   return (
     <Router>
       <Routes>
