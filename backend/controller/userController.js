@@ -4,10 +4,8 @@ import path from "path";
 import mongoose from "mongoose";
 // import "gridfs-stream";
 // import "multer-gridfs-storage";
-import pkg from "multer-gridfs-storage";
-const { GridFsStorage } = pkg;
-import pkg1 from "gridfs-stream";
-const { gridfsStream } = pkg1;
+import { GridFsStorage } from "multer-gridfs-storage";
+import Grid from "gridfs-stream";
 
 import { fileURLToPath } from "url";
 
@@ -21,7 +19,7 @@ const conn = mongoose.createConnection(mongoURL);
 let gfs;
 
 conn.once("open", () => {
-  gfs = gridfsStream(conn.db, mongoose.mongo);
+  gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection("uploads"); // Ensure you set the collection name here
 });
 
