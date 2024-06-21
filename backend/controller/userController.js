@@ -29,6 +29,8 @@ const uploadHere = async (req, res) => {
   }
 };
 
+
+
 const uploadImage = async (req, res) => {
   upload.single("up-image")(req, res, function (err) {
     if (err) {
