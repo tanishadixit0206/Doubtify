@@ -1,26 +1,25 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import  authenticate  from './middleware/Authenticate.js';
-import cookieParser from 'cookie-parser';
-import cors from "cors"
-import { db } from './connection.js';
+import express from "express";
+import bodyParser from "body-parser";
+import authenticate from "./middleware/Authenticate.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import { db } from "./connection.js";
 import path from "path";
 import mongoose from "mongoose";
 import { router as UserRoutes } from "./routes/User.js";
 import { router as UserLogin } from "./routes/Login.js";
-import {requireAuth}  from './middleware/requireAuth.js';
+import { requireAuth } from "./middleware/requireAuth.js";
 // dotenv.config()
 
 const app = express();
 const port = 5000;
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(cookieParser())
+app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(express.json());
 
-
-db.connect()
+// db.connect();
 
 // mongodb connection
 // const mongoUrl = "mongodb://127.0.0.1:27017/";
