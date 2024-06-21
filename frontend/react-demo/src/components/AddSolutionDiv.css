@@ -1,7 +1,4 @@
-.add-solution-div {
-    /* Additional styles for the entire AddSolutionDiv component if needed */
-  }
-  .dropzone {
+.dropzone {
     border: dashed 4px #ddd !important ;
     background-color: #f2f6fc;
     border-radius: 15px;

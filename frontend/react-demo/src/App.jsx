@@ -6,10 +6,9 @@ import AddSolutionDiv from './components/AddSolutionDiv';
 
 function App() {
   return (
-    // <AuthContextProvider>
-    //   <RoutesD />
-    // </AuthContextProvider>
-    <AddSolutionDiv/>
+    <AuthContextProvider>
+      <RoutesD />
+    </AuthContextProvider>
   );
 }
 
