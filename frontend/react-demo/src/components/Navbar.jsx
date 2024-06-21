@@ -44,6 +44,9 @@ function NavBar() {
       case "Biology":
         options = biology 
         break; 
+      case "Maths":
+        options = maths 
+        break; 
       default:
         options = []; 
     }
