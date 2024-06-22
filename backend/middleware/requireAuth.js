@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from 'dotenv'
-import { db } from "../connection.js";
+import users from "../models/userModel.js";
 
 const JWT_SECRET = "FHHHHHVhsvhdhaee4456sjyjmjyohs6j86j2jshiJSHjsnjmd"
 
@@ -17,7 +17,8 @@ const requireAuth = async (req,res,next)=>{
 
     try {
         const {id} = jsonwebtoken.verify(token,JWT_SECRET)
-        req.user = await db.query("SELECT id FROM users WHERE username = $1",[id])
+        // req.user = await db.query("SELECT id FROM users WHERE username = $1",[id])
+        req.user = await users.findOne({username:id},{_id:true})
         console.log(id)
         next()
     } catch (error) {
