@@ -8,6 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  /* overflow: hidden; */
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

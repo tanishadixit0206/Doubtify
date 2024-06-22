@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 const SubjectContext = createContext(null);
 
 const SubjectProvider = ({ children }) => {
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState("All");
 
   const selectSubject = (newSubject) => {
     setSubject(newSubject);
