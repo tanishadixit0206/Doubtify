@@ -1,14 +1,11 @@
-// import multer from "multer";
-// import crypto from "crypto";
-// import path from "path";
-// import mongoose from "mongoose";
-// // import "gridfs-stream";
-// // import "multer-gridfs-storage";
-// // import pkg from "multer-gridfs-storage";
-// // const { GridFsStorage } = pkg;
-// import {GridFsStorage} from 'multer-gridfs-storage'
-// import pkg1 from "gridfs-stream";
-// const { gridfsStream } = pkg1;
+import multer from "multer";
+import crypto from "crypto";
+import path from "path";
+import mongoose from "mongoose";
+// import "gridfs-stream";
+// import "multer-gridfs-storage";
+import { GridFsStorage } from "multer-gridfs-storage";
+import Grid from "gridfs-stream";
 
 // import { fileURLToPath } from "url";
 
@@ -21,10 +18,10 @@
 
 // let gfs;
 
-// conn.once("open", () => {
-//   gfs = gridfsStream(conn.db, mongoose.mongo);
-//   gfs.collection("uploads"); // Ensure you set the collection name here
-// });
+conn.once("open", () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("uploads"); // Ensure you set the collection name here
+});
 
 // // const storage = multer.diskStorage({
 // //   destination: function (req, file, cb) {
