@@ -2,15 +2,12 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import methodOverride from "method-override";
+import multer from "multer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import {
-  justGet,
-  uploadHere,
-  uploadImage,
-} from "../controller/userController.js";
+import { justGet, uploadHere } from "../controller/userController.js";
 
 const router = express();
 
@@ -26,9 +23,12 @@ router.use((req, res, next) => {
   next();
 });
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 router.get("/", justGet);
 router.get("/upload-image", uploadHere);
-router.post("/upload-image", uploadImage);
+router.post("/upload-image",upload.single(""));
 
 // router.get("/get-image", userController.getImage);
 
