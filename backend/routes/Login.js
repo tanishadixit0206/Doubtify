@@ -1,12 +1,12 @@
 import users from "../models/userModel.js";
 import express from "express";
-// import { db } from "../connection.js";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
 import { requireAuth } from "../middleware/requireAuth.js";
+
+
 const router = express();
-import mongoose  from "mongoose";
 
 dotenv.config()
 
@@ -74,6 +74,14 @@ router.post("/login",async (req,res)=>{
       res.status(500).send("Internal server error.");
   }
 })
+
+
+// router.post("/addDoubt",requireAuth,(req,res)=>{
+//   const title = req.body.title
+//   const subject = req.body.subject
+//   const topic = req.body.topic
+
+// })
 
 router.get("/userIsVerified",requireAuth,(req,res)=>{
   res.send("u r verified!")

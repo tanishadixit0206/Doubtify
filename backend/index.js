@@ -7,7 +7,8 @@ import path from "path";
 import mongoose from "mongoose";
 // import { router as UserRoutes } from "./routes/User.js";
 import { router as UserLogin } from "./routes/Login.js";
-// import { requireAuth } from "./middleware/requireAuth.js";
+import { requireAuth } from "./middleware/requireAuth.js";
+import {router as Home} from "./routes/Home.js"
 // dotenv.config()
 
 const app = express();
@@ -33,7 +34,7 @@ app.use(express.json());
 // app.use("/user", express.urlencoded({ extended: false }), UserRoutes);
 
 app.use("/", UserLogin);
-
+app.use("/home",Home)
 app.listen(port, () => {
   console.log(`Server Started at port : ${port}`);
 });

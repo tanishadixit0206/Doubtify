@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connection = mongoose.createConnection("mongodb://localhost:27017/Doubtify");
+const connection = mongoose.createConnection("mongodb://127.0.0.1:27017/Doubtify");
 
 
 const userSchema = new mongoose.Schema({

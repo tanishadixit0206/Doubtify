@@ -37,7 +37,8 @@ function RegisterForm() {
         const response = await axios.post("http://localhost:5000/register", user);
         console.log(response.data); // Assuming successful response has data
   
-        if (response.data.message === "User created successfully") {
+        if (response.data == "User created successfully!") {
+          console.log("login par jaane lage")
           // Handle successful registration (e.g., navigate to login page, show success message)
           navigate("/login");
         } else {

@@ -17,7 +17,6 @@ const requireAuth = async (req,res,next)=>{
 
     try {
         const {id} = jsonwebtoken.verify(token,JWT_SECRET)
-        // req.user = await db.query("SELECT id FROM users WHERE username = $1",[id])
         req.user = await users.findOne({username:id},{_id:true})
         console.log(id)
         next()

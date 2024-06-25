@@ -29,8 +29,9 @@ function LoginForm() {
         }
     
         try {
+            
           const response = await axios.post("http://localhost:5000/login", user);// Assuming successful response has data
-    
+          console.log(response)  
           if (response.data.auth) {
             localStorage.setItem("token",response.data.token)
             dispatch({type:'LOGIN',payload:response.data})

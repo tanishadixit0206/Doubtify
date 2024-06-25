@@ -12,19 +12,37 @@ import { useAuthContext } from '../hooks/UseAuthContext';
 import { useContext, useEffect, useState } from 'react';
 import { SubjectContext } from '../context/SubjectContext'
 import {maths,chemistry,biology,all,physics} from '../subjects'
+import axios from 'axios';
 
-
-function NavBar() {
-
+function NavBar(props) {
+  const {user} = useAuthContext()
+  const [doubts,setDoubts] = useState([])
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+  
+  const handleChange = async (event) => {
+    const {value} = event.target
+    setSelectedOption(value);
+    console.log("yeh hai " + value)
+    try {
+      const response = await axios.post("http://localhost:5000/home/filter", {
+        topic: value,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${user}`,
+        }
+      });
+      console.log(response)
+      setDoubts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  var { user } = useAuthContext()
+  
   var { subject } = useContext(SubjectContext);
   const navigate = useNavigate()
   const logout = useLogout()
+
   const handleClick = () => {
     logout()
     navigate("/")
@@ -85,7 +103,9 @@ function NavBar() {
                   ))}
               </select>
             </form>
-            <Button className='btn-nav mr-3' variant="outline-light">Search</Button>
+            <Button onClick={()=>{
+              props.searchFunction(doubts)
+            }} className='btn-nav mr-3' variant="outline-light">Search</Button>
           </Form>
           {user ? <Button onClick={handleClick} className='btn-nav mx-1' variant="outline-light">Logout</Button> : null}
         </Navbar.Collapse>
