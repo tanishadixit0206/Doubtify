@@ -18,7 +18,6 @@ const requireAuth = async (req,res,next)=>{
     try {
         const {id} = jsonwebtoken.verify(token,JWT_SECRET)
         req.user = await users.findOne({username:id},{_id:true})
-        console.log(id)
         next()
     } catch (error) {
         console.log(error)

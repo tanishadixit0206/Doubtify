@@ -52,5 +52,29 @@ router.get("/",requireAuth, async (req, res) => {
       res.status(401).json({ message: "Unauthorized" });
     }
   });
+  router.post("/filter_side",requireAuth, async (req, res) => {
+    try {
+      const { authorization } = req.headers;
+      if (authorization) {
+        const token = authorization.split(' ')[1];
+        const { id } = jsonwebtoken.verify(token, JWT_SECRET);
 
+        const subject = req.body.subject
+        if(subject === 'All'){
+          const user_doubts = await doubts.find({ username: id });
+          res.json(user_doubts);
+        }
+        else{
+          const user_doubts = await doubts.find({ username: id ,subject:subject});
+          res.json(user_doubts);
+        }
+        
+      } else {
+        throw new Error("Authorization header missing");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(401).json({ message: "Unauthorized" });
+    }
+  });
 export {router}

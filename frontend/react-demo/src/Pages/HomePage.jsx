@@ -37,7 +37,7 @@
             <SubjectProvider>
             <div>
                 <NavBar searchFunction={filterDoubts}  />
-                <SideBar />
+                <SideBar searchFunction={filterDoubts} />
                 <div style={{marginLeft:"18vw",marginTop:"10vh"}} className="col-lg-10 d-flex flex-wrap  px-2 ">
                     {doubts.map((doubt)=>{ return <Tile image={doubt.url} title={doubt.title} subject={doubt.subject} topic={doubt.topic} date={doubt.date.substring(0,10)}/>
                     })}
