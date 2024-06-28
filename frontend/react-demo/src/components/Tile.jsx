@@ -7,7 +7,7 @@ import './Tile.css';
 function Tile(props) {
   return (
     <Card style={{ width: '18rem',margin:"1.5rem" }}>
-      <Card.Img variant="top" src={require('../images/pexels-carocastilla-1716861.jpg')} alt="pikachu"/>
+      <Card.Img variant="top" src={props.image} alt="pikachu"/>
       <Card.Body>
         <Card.Title>Title : {props.title}</Card.Title>
         <Card.Text>Subject : {props.subject}</Card.Text>

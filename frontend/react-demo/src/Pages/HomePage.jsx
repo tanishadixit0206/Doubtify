@@ -30,6 +30,7 @@
         }
 
         const [isClicked,setIsClicked] = useState(true)
+        
         function handleClick(){
             setIsClicked(!isClicked)
         }
@@ -39,7 +40,7 @@
                 <NavBar searchFunction={filterDoubts}  />
                 <SideBar searchFunction={filterDoubts} />
                 <div style={{marginLeft:"18vw",marginTop:"10vh"}} className="col-lg-10 d-flex flex-wrap  px-2 ">
-                    {doubts.map((doubt)=>{ return <Tile image={doubt.url} title={doubt.title} subject={doubt.subject} topic={doubt.topic} date={doubt.date.substring(0,10)}/>
+                    {doubts.map((doubt)=>{ return <Tile image={doubt.q_url} title={doubt.title} subject={doubt.subject} topic={doubt.topic} date={doubt.date.substring(0,10)}/>
                     })}
                 </div>
                 
@@ -47,7 +48,7 @@
                 {isClicked ? <AddIcon/>:<CloseIcon/> } 
                 </Fab>
                 {
-                    !isClicked ? <AddSolutionDiv submit_function = {handleClick} />:null
+                    !isClicked ? <AddSolutionDiv hide_function={handleClick} submit_function = {filterDoubts} />:null
                 }
             </div>
             </SubjectProvider>
