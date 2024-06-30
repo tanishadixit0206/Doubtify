@@ -27,6 +27,25 @@ router.get("/", requireAuth, async (req, res) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 });
+
+router.put("/update",requireAuth,async(req,res)=>{
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.split(' ')[1];
+      const { id } = jsonwebtoken.verify(token, JWT_SECRET);
+      const title = req.body.title
+      const response = await doubts.updateOne({username:id,title:title},{$set:{q_url:req.body.q_url,sol_url:req.body.sol_url,subject:req.body.subject,topic:req.body.topic}})
+      res.sendStatus(200).json({message:"updated"})
+    } else {
+      throw new Error("Authorization header missing");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ message: "Unauthorized" });
+  }
+})
+
 router.post("/filter", requireAuth, async (req, res) => {
   try {
     const { authorization } = req.headers;
@@ -50,6 +69,25 @@ router.post("/filter", requireAuth, async (req, res) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 });
+
+
+router.delete("/delete",requireAuth,async(req,res)=>{
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.split(' ')[1];
+      const { id } = jsonwebtoken.verify(token, JWT_SECRET);
+      const title = req.body.title
+      await doubts.deleteOne({username:id,title:title})
+      res.sendStatus(200).json({message:"deleted"})
+    } else {
+      throw new Error("Authorization header missing");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ message: "Unauthorized" });
+  }
+})
 
 router.post("/filter_bydate", requireAuth, async (req, res) => {
   try {
