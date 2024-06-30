@@ -48,57 +48,83 @@ function AddSolutionDiv(props) {
         setPic2(true)
     }
 
+    // async function back_to_home() {
+    //     var doubts_array = []
+    //     const response = await axios.get("http://localhost:5000/home", {
+    //         headers: {
+    //             'Authorization': `Bearer ${user}`
+    //         }
+    //     })
+    //     console.log("chaljaa yaar")
+    //     doubts_array = response.data
+    //     props.submit_function(doubts_array)
+    //     seTb64("")
+    //     seTb642("")
+    //     setPostImage1({ myFile1: "" })
+    //     setPostImage2({ myFile2: "" })
+    //     setPic1(false)
+    //     setPic2(false)
+    //     console.log("kaise ho")
+    //     props.hide_function()
+    // }
 
     async function handleSubmit() {
-        var dup = false
-        const response1 = await axios.get("http://localhost:5000/home", {
-            headers: {
-                'Authorization': `Bearer ${user}`
-            }
-        })
-        for (let i = 0; i < response1.data.length; i++) {
-            const element = response1.data[i];
-            if (element.title === doubt.title) {
-                dup = true
-            }
-        }
-        if (dup === false) {
-            
-            await axios.post("http://localhost:5000/home/add_pic", {
-                title: doubt.title,
-                subject: doubt.subject,
-                topic: doubt.topic,
-                q_url: b64,
-                sol_url: b642
-            }, {
+        var dup = false;
+        try {
+            const response1 = await axios.get("http://localhost:5000/home", {
                 headers: {
-                    'Authorization': `Bearer ${user}`,
+                    'Authorization': `Bearer ${user}`
                 }
-            })
-            back_to_home()
-        }
-        else {
-            props.hide_function()
-        }
-    }
-    async function back_to_home() {
-        var doubts_array = []
-        const response = await axios.get("http://localhost:5000/home", {
-            headers: {
-                'Authorization': `Bearer ${user}`
+            });
+    
+            for (let i = 0; i < response1.data.length; i++) {
+                const element = response1.data[i];
+                if (element.title === doubt.title) {
+                    dup = true;
+                    break;  // exit the loop as soon as a duplicate is found
+                }
             }
-        })
-        console.log(response.data)
-        doubts_array = response.data
-        props.submit_function(doubts_array)
-        seTb64("")
-        seTb642("")
-        setPostImage1({ myFile1: "" })
-        setPostImage2({ myFile2: "" })
-        setPic1(false)
-        setPic2(false)
-        console.log("kaise ho")
-        props.hide_function()
+    
+            if (dup === false) {
+                const response1 = await axios.post("http://localhost:5000/home/add_pic", {
+                    title: doubt.title,
+                    subject: doubt.subject,
+                    topic: doubt.topic,
+                    q_url: b64,
+                    sol_url: b642
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${user}`,
+                    }
+                });
+    
+                console.log("Post response:", response1.data);
+    
+                const response = await axios.get("http://localhost:5000/home", {
+                    headers: {
+                        'Authorization': `Bearer ${user}`
+                    }
+                });
+    
+                console.log("Get response after post:", response.data);
+    
+                props.submit_function(response.data);
+                seTb64("");
+                seTb642("");
+                setPostImage1({ myFile1: "" });
+                setPostImage2({ myFile2: "" });
+                setPic1(false);
+                setPic2(false);
+    
+                props.hide_function();
+            
+            } else {
+                props.hide_function();
+            }
+        } catch (error) {
+            console.error("Error in handleSubmit:", error);
+            // Handle error appropriately, e.g., show a message to the user
+        }
     }
     
     const [pic1, setPic1] = useState(false)
@@ -206,26 +232,8 @@ function AddSolutionDiv(props) {
                         <div class="text-center pt-3 px-5">
                             <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
                             <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
-                            <div class="hr-sect">or</div>
-                            <button style={!hover1 ? {
-                                color: "white",
-                                backgroundColor: "rgb(113, 44, 249)",
-                                borderColor: "rgb(113, 44, 249)",
-                                fontFamily: "Poppins",
-                                fontWeight: "700",
-                                fontStyle: "normal",
-                                fontSize: "1.1rem"
-                            } : {
-                                color: "rgb(113, 44, 249)",
-                                backgroundColor: "white",
-                                borderColor: "rgb(113, 44, 249)",
-                                fontFamily: "Poppins",
-                                fontWeight: "700",
-                                fontStyle: "normal",
-                                fontSize: "1.1rem"
-                            }} class="btn btn-primary mb-2" onMouseEnter={ishover1} onMouseLeave={isnothover1}>Browse Files</button>
-                        </div>
-                    </div> : <img src={postImage1.myFile1} alt="" />}
+                            
+                    </div> </div>: <img src={postImage1.myFile1} alt="" />}
                     <input id="files1" onChange={handlePicInsert1} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
                 </label>
             </div>
@@ -257,25 +265,7 @@ function AddSolutionDiv(props) {
                         <div class="text-center pt-3 px-5">
                             <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
                             <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
-                            <div class="hr-sect">or</div>
-                            <button style={!hover2 ? {
-                                color: "white",
-                                backgroundColor: "rgb(113, 44, 249)",
-                                borderColor: "rgb(113, 44, 249)",
-                                fontFamily: "Poppins",
-                                fontWeight: "700",
-                                fontStyle: "normal",
-                                fontSize: "1.1rem"
-                            } : {
-                                color: "rgb(113, 44, 249)",
-                                backgroundColor: "white",
-                                borderColor: "rgb(113, 44, 249)",
-                                fontFamily: "Poppins",
-                                fontWeight: "700",
-                                fontStyle: "normal",
-                                fontSize: "1.1rem"
-                            }} class="btn btn-primary mb-2" onMouseEnter={ishover2} onMouseLeave={isnothover2}>Browse Files</button>
-                        </div>
+                            </div>
                     </div> : <img src={postImage2.myFile2} alt="" />}
                 </label>
                 <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />

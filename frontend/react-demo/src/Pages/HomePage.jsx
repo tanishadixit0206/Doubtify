@@ -14,14 +14,14 @@
     function Home() {
         const {user} = useAuthContext()
         const [doubts,setDoubts] = useState([])
+        const getDoubts = async ()=>{
+            const response  =  await axios.get("http://localhost:5000/home",{headers:{
+            'Authorization':`Bearer ${user}`
+        }})
+        console.log(response)
+        setDoubts(response.data)
+        }
         useEffect(()=>{
-            const getDoubts = async ()=>{
-                const response  =  await axios.get("http://localhost:5000/home",{headers:{
-                'Authorization':`Bearer ${user}`
-            }})
-            console.log(response)
-            setDoubts(response.data)
-            }
             getDoubts()
         },[])
 
@@ -48,7 +48,7 @@
                 {isClicked ? <AddIcon/>:<CloseIcon/> } 
                 </Fab>
                 {
-                    !isClicked ? <AddSolutionDiv hide_function={handleClick} submit_function = {filterDoubts} />:null
+                    !isClicked ? <AddSolutionDiv  hide_function={handleClick} submit_function = {filterDoubts} />:null
                 }
             </div>
             </SubjectProvider>

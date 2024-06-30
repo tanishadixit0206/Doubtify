@@ -102,6 +102,7 @@ router.post("/add_pic", requireAuth, async (req, res) => {
 
     const response = await doubts.insertMany(doubt);
     console.log(response);
+    res.json({message : "doubt added"})
   }
 });
 

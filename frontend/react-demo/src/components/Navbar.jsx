@@ -19,7 +19,8 @@ function NavBar(props) {
   const [doubts,setDoubts] = useState([])
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
-  
+  const [sortOrder, setSortOrder] = useState("Newest to Oldest"); 
+
   const handleChange = async (event) => {
     const {value} = event.target
     setSelectedOption(value);
@@ -27,6 +28,7 @@ function NavBar(props) {
     try {
       const response = await axios.post("http://localhost:5000/home/filter", {
         topic: value,
+        sortOrder:sortOrder
       }, {
         headers: {
           'Authorization': `Bearer ${user}`,
@@ -71,6 +73,11 @@ function NavBar(props) {
     setOptions(options); 
   }, [subject]);
 
+  const handleSortOrderChange = (order) => {
+    setSortOrder(order);
+    console.log(order)
+    handleChange()
+  };
 
   return (
     <Navbar style={{ position: "fixed", zIndex: 2, top: "0", right: "0", left: "0" }} expand="lg" className="custom-navbar py-3">
@@ -85,10 +92,8 @@ function NavBar(props) {
           >
             <Nav.Link className='custom-navbar-text1' href="#action1">Sort By :</Nav.Link>
             <NavDropdown title="Date" id="navbarScrollingDropdown" className='custom-navbar-text1'>
-              <NavDropdown.Item href="#action3" className='custom-navbar-text1'>Newest to Oldest</NavDropdown.Item>
-              <NavDropdown.Item href="#action4" className='custom-navbar-text1'>
-                Oldest to Newest
-              </NavDropdown.Item>
+               <NavDropdown.Item className='custom-navbar-text1' onClick={()=>{handleSortOrderChange("Newest to Oldest")}}>Newest to Oldest</NavDropdown.Item>
+              <NavDropdown.Item className='custom-navbar-text1' onClick={()=>{handleSortOrderChange("Oldest to Newest")}}>Oldest to Newest</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="d-flex custom-navbar-text1">
