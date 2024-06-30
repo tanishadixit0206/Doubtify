@@ -33,6 +33,30 @@ router.post("/filter", requireAuth, async (req, res) => {
     if (authorization) {
       const token = authorization.split(' ')[1];
       const { id } = jsonwebtoken.verify(token, JWT_SECRET);
+      const topic = req.body.topic
+      if (topic === '') {
+        const user_doubts = await doubts.find({ username: id });
+        res.json(user_doubts);
+      }
+      else {
+        const user_doubts = await doubts.find({ username: id, topic: topic })
+        res.json(user_doubts);
+      }
+    } else {
+      throw new Error("Authorization header missing");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
+router.post("/filter_bydate", requireAuth, async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.split(' ')[1];
+      const { id } = jsonwebtoken.verify(token, JWT_SECRET);
       const sortOrder = req.body.sortOrder
       const topic = req.body.topic
       if (topic === '' && sortOrder ==="Newest to Oldest") {
@@ -60,6 +84,8 @@ router.post("/filter", requireAuth, async (req, res) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 });
+
+
 router.post("/filter_side", requireAuth, async (req, res) => {
   try {
     const { authorization } = req.headers;

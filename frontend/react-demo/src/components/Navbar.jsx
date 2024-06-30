@@ -27,8 +27,7 @@ function NavBar(props) {
     console.log("yeh hai " + value)
     try {
       const response = await axios.post("http://localhost:5000/home/filter", {
-        topic: value,
-        sortOrder:sortOrder
+        topic: value
       }, {
         headers: {
           'Authorization': `Bearer ${user}`,
@@ -73,10 +72,23 @@ function NavBar(props) {
     setOptions(options); 
   }, [subject]);
 
-  const handleSortOrderChange = (event,order) => {
+  const handleSortOrderChange = async (order) => {
     setSortOrder(order);
-    console.log(order)
-    handleChange(event)
+    console.log(sortOrder)
+    try {
+      const response = await axios.post("http://localhost:5000/home/filter_bydate", {
+        topic: selectedOption,
+        sortOrder:sortOrder
+      }, {
+        headers: {
+          'Authorization': `Bearer ${user}`,
+        }
+      });
+      console.log(response)
+      props.searchFunction(response.data)
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -91,7 +103,7 @@ function NavBar(props) {
             navbarScroll
           >
             <Nav.Link className='custom-navbar-text1' href="#action1">Sort By :</Nav.Link>
-            <NavDropdown title="Date" id="navbarScrollingDropdown" className='custom-navbar-text1'>
+            <NavDropdown title={sortOrder} id="navbarScrollingDropdown" className='custom-navbar-text1'>
                <NavDropdown.Item className='custom-navbar-text1' onClick={()=>{handleSortOrderChange("Newest to Oldest")}}>Newest to Oldest</NavDropdown.Item>
               <NavDropdown.Item className='custom-navbar-text1' onClick={()=>{handleSortOrderChange("Oldest to Newest")}}>Oldest to Newest</NavDropdown.Item>
             </NavDropdown>
