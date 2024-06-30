@@ -33,14 +33,22 @@ router.post("/filter", requireAuth, async (req, res) => {
     if (authorization) {
       const token = authorization.split(' ')[1];
       const { id } = jsonwebtoken.verify(token, JWT_SECRET);
-
+      const sortOrder = req.body.sortOrder
       const topic = req.body.topic
-      if (topic === '') {
-        const user_doubts = await doubts.find({ username: id });
+      if (topic === '' && sortOrder ==="Newest to Oldest") {
+        const user_doubts = await doubts.find({ username: id }).sort({date:-1});
         res.json(user_doubts);
       }
-      else {
-        const user_doubts = await doubts.find({ username: id, topic: topic });
+      else if(topic === '' && sortOrder ==="Oldest to Newest") {
+        const user_doubts = await doubts.find({ username: id}).sort({date:1});
+        res.json(user_doubts);
+      }
+      else if(topic !== '' && sortOrder ==="Oldest to Newest") {
+        const user_doubts = await doubts.find({ username: id, topic: topic }).sort({date:1});
+        res.json(user_doubts);
+      }
+      else if(topic !== '' && sortOrder ==="Newest to Oldest") {
+        const user_doubts = await doubts.find({ username: id, topic: topic }).sort({date:-1});
         res.json(user_doubts);
       }
 

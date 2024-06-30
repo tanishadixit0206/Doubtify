@@ -73,10 +73,10 @@ function NavBar(props) {
     setOptions(options); 
   }, [subject]);
 
-  const handleSortOrderChange = (order) => {
+  const handleSortOrderChange = (event,order) => {
     setSortOrder(order);
     console.log(order)
-    handleChange()
+    handleChange(event)
   };
 
   return (
