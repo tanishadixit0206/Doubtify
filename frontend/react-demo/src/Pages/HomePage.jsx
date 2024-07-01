@@ -10,7 +10,7 @@
     import CloseIcon from '@mui/icons-material/Close';
     import axios from "axios";
     import Tile from "../components/Tile"
-
+    import ViewSolutionDiv from "../components/ViewSolutionDiv";
     function Home() {
         const {user} = useAuthContext()
         const [doubts,setDoubts] = useState([])
@@ -40,10 +40,9 @@
                 <NavBar searchFunction={filterDoubts}  />
                 <SideBar searchFunction={filterDoubts} />
                 <div style={{marginLeft:"18vw",marginTop:"10vh"}} className="col-lg-10 d-flex flex-wrap  px-2 ">
-                    {doubts.map((doubt)=>{ return <Tile image={doubt.q_url} title={doubt.title} subject={doubt.subject} sol_image={doubt.sol_url} topic={doubt.topic} date={doubt.date.substring(0,10)}/>
+                    {doubts.map((doubt)=>{ return <Tile submit_function = {filterDoubts} image={doubt.q_url} title={doubt.title} subject={doubt.subject} sol_image={doubt.sol_url} topic={doubt.topic} date={doubt.date.substring(0,10)}/>
                     })}
                 </div>
-                
                 <Fab onClick={handleClick} size="large" style={{backgroundColor:"rgb(113,44,249)",color:"white",position:"fixed",bottom:"4vh",right:"2vw",zIndex:"1000"}}>
                 {isClicked ? <AddIcon/>:<CloseIcon/> } 
                 </Fab>

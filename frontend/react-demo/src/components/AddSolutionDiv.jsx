@@ -240,7 +240,7 @@ function AddSolutionDiv(props) {
 
             <div class="dropzone d-block">
                 <label for="files2" class="dropzone-container">
-                    {!pic2 ? <div>
+                    {!pic2? <div>
                         <div class="file-icon"><i class="fa-solid fa-file-circle-plus text-primary"></i></div>
                         <div class="text-center pt-3 px-5">
                             <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>

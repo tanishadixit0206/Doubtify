@@ -7,63 +7,31 @@ import Autocomplete from '@mui/material/Autocomplete';
 import "./AddSolutionDiv.css"
 import axios from 'axios'
 import { useAuthContext } from "../hooks/UseAuthContext";
+import Fab from '@mui/material/Fab';
+// import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 function ViewSolutionDiv(props) {
-    async function handleSubmit() {
-        try {
-                const response1 = await axios.put("http://localhost:5000/home/update", {
-                    title: doubt.title,
-                    subject: doubt.subject,
-                    topic: doubt.topic,
-                    q_url: b64,
-                    sol_url: b642
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${user}`,
-                    }
-                });
+
     
-                console.log("Put response:", response1.data);
-    
-                const response = await axios.get("http://localhost:5000/home", {
-                    headers: {
-                        'Authorization': `Bearer ${user}`
-                    }
-                });
-    
-                console.log("Get response after post:", response.data);
-    
-                props.submit_function(response.data);
-                seTb64("");
-                seTb642("");
-                setPostImage1({ myFile1: "" });
-                setPostImage2({ myFile2: "" });
-                setPic1(false);
-                setPic2(false);
-                props.hide_function();
-        } catch (error) {
-            console.error("Error in handleSubmit:", error);
-        }
-    }
 
     async function deleteDoubt() {
-        const response = await axios.delete("http://localhost:5000/home/delete", {
-            title: props.title
-        }, {
+        console.log(user)
+        const response = await axios.delete(`http://localhost:5000/home/delete/${doubt.title}`, {
             headers: {
                 'Authorization': `Bearer ${user}`
             }
-        })
-        console.log("Post response:", response.data);
+        });
+
+        console.log(response + " deleted")
 
         const response1 = await axios.get("http://localhost:5000/home", {
             headers: {
                 'Authorization': `Bearer ${user}`
             }
         });
-
-        console.log("Get response after post:", response.data);
 
         props.submit_function(response1.data);
         seTb64("");
@@ -73,7 +41,6 @@ function ViewSolutionDiv(props) {
         setPic1(false);
         setPic2(false);
         props.hide_function();
-
     }
 
 
@@ -196,11 +163,51 @@ function ViewSolutionDiv(props) {
     const [options, setOptions] = useState([]);
 
     const values = ["All", "Physics", "Chemistry", "Maths", "Biology"];
-
+    async function handleSubmit() {
+        try {
+                const response1 = await axios.put("http://localhost:5000/home/update", {
+                    title: doubt.title,
+                    subject: doubt.subject,
+                    topic: doubt.topic,
+                    q_url: b64,
+                    sol_url: b642
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${user}`,
+                    }
+                });
+    
+                console.log("Put response:", response1.data);
+    
+                const response = await axios.get("http://localhost:5000/home", {
+                    headers: {
+                        'Authorization': `Bearer ${user}`
+                    }
+                });
+    
+                console.log("Get response after post:", response.data);
+    
+                props.submit_function(response.data);
+                seTb64("");
+                seTb642("");
+                setPostImage1({ myFile1: "" });
+                setPostImage2({ myFile2: "" });
+                setPic1(false);
+                setPic2(false);
+                props.hide_function();
+        } catch (error) {
+            console.error("Error in handleSubmit:", error);
+        }
+    }
     return (
-        <div style={{ position: "fixed", bottom: "1vh", right: "2vh", borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
-            <div style={{ width: "100%", textAlign: "center", backgroundColor: "rgb(113, 44, 249)" }} className="mb-3">
-                <h1 style={{ color: "white" }} className="add-solution-heading my-3 ">Add a Doubt</h1>
+        <div style={{top:"10vh", position: "fixed", zIndex:"4000",borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
+            <div style={{ width: "100%", textAlign: "center",alignItems:"center", backgroundColor: "rgb(113, 44, 249)",display:"flex",justifyContent:"space-between" }} className="mb-3 px-2">
+             <div style={{flex:"80%"}}>
+             <h1 style={{ color: "white" }} className="add-solution-heading my-3 ">Update Doubt</h1>
+                </div>   
+                <Fab color="primary" size="medium" onClick={props.hide_function} aria-label="cross" style={{backgroundColor:"white",color:"rgb(113,44,249)"}}>
+                    <CloseIcon />
+                </Fab>
             </div>
 
             <div class="dropzone d-block">
@@ -210,13 +217,13 @@ function ViewSolutionDiv(props) {
                 </label>
             </div>
 
-            <div className="form-container">
+            <div style={{zIndex:"4000"}} className="form-container">
                 <input required type="text" readOnly onChange={onChange} name="title" value={props.title} style={{ color: "rgb(113, 44, 249)", borderColor: "rgb(180,180,180)", backgroundColor: "rgba(0,0,0,0)" }} class="form-control px-3 py-4 my-3" id="floatingInput" Autocomplete="off" placeholder="Title" />
                 <Autocomplete required
                     className="my-3"
                     options={values}
                     value={props.subject}
-                    style={{ width: "60vw" }}
+                    style={{ width: "60vw",zIndex:"6000" }}
                     renderInput={(params) => (
                         <TextField name="subject" onSelect={onChange} {...params} label="Subject" variant="outlined" />
                     )}
@@ -225,53 +232,71 @@ function ViewSolutionDiv(props) {
                     className="my-3"
                     options={options}
                     value={props.topic}
-                    style={{ width: "60vw" }}
+                    style={{ width: "60vw" ,zIndex:"6000"}}
                     renderInput={(params) => (
                         <TextField name="topic" onSelect={onChange} {...params} label="Topic" variant="outlined" />
                     )}
                 />
             </div>
-
-            <div class="dropzone d-block">
+            {/* <div class="dropzone d-block">
                 <label for="files2" class="dropzone-container">
-                <img src={postImage2.myFile2} alt="" />
+                    <div>
+                        <div class="file-icon"><i class="fa-solid fa-file-circle-plus text-primary"></i></div>
+                        <div class="text-center pt-3 px-5">
+                            <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
+                            <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
+                            </div>
+                    </div>
                 </label>
                 <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
+            </div> */}
+            <div class="dropzone d-block">
+                <label for="files2" class="dropzone-container">
+                    <img src={postImage2.myFile2} alt="" />
+               
+                <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
+           
+           </label>
             </div>
+
+            <div style={{display:"flex"}}>
             <button style={!hover3 ? {
-                color: "white",
-                backgroundColor: "rgb(113, 44, 249)",
-                borderColor: "rgb(113, 44, 249)",
-                fontFamily: "Poppins",
-                fontWeight: "700",
-                fontStyle: "normal",
-                fontSize: "1.1rem"
-            } : {
-                color: "rgb(113, 44, 249)",
-                backgroundColor: "white",
-                borderColor: "rgb(113, 44, 249)",
-                fontFamily: "Poppins",
-                fontWeight: "700",
-                fontStyle: "normal",
-                fontSize: "1.1rem"
-            }} class="btn btn-primary my-3 " onClick={handleSubmit} onMouseEnter={ishover3} onMouseLeave={isnothover3}>Submit</button>
-            <button style={!hover4 ? {
-                color: "white",
-                backgroundColor: "rgb(113, 44, 249)",
-                borderColor: "rgb(113, 44, 249)",
-                fontFamily: "Poppins",
-                fontWeight: "700",
-                fontStyle: "normal",
-                fontSize: "1.1rem"
-            } : {
-                color: "rgb(113, 44, 249)",
-                backgroundColor: "white",
-                borderColor: "rgb(113, 44, 249)",
-                fontFamily: "Poppins",
-                fontWeight: "700",
-                fontStyle: "normal",
-                fontSize: "1.1rem"
-            }} class="btn btn-primary my-3 " onClick={deleteDoubt} onMouseEnter={ishover4} onMouseLeave={isnothover4}>Delete</button>
+                  color: "white",
+                  backgroundColor: "rgb(113, 44, 249)",
+                  borderColor: "rgb(113, 44, 249)",
+                  fontFamily: "Poppins",
+                  fontWeight: "700",
+                  fontStyle: "normal",
+                  fontSize: "1.1rem"
+              } : {
+                  
+                  color: "rgb(113, 44, 249)",
+                  backgroundColor: "white",
+                  borderColor: "rgb(113, 44, 249)",
+                  fontFamily: "Poppins",
+                  fontWeight: "700",
+                  fontStyle: "normal",
+                  fontSize: "1.1rem"
+              }} class="btn btn-primary my-3 mx-3" onClick={handleSubmit} onMouseEnter={ishover3} onMouseLeave={isnothover3}>Submit</button>
+              <button style={!hover4 ? {
+                  color: "white",
+                  backgroundColor: "rgb(113, 44, 249)",
+                  borderColor: "rgb(113, 44, 249)",
+                  fontFamily: "Poppins",
+                  fontWeight: "700",
+                  fontStyle: "normal",
+                  fontSize: "1.1rem"
+              } : {
+                  color: "rgb(113, 44, 249)",
+                  backgroundColor: "white",
+                  borderColor: "rgb(113, 44, 249)",
+                  fontFamily: "Poppins",
+                  fontWeight: "700",
+                  fontStyle: "normal",
+                  fontSize: "1.1rem"
+              }} class="btn btn-primary my-3 mx-3 " onClick={deleteDoubt} onMouseEnter={ishover4} onMouseLeave={isnothover4}>Delete</button>
+            </div>
+            
         </div>
     );
 }

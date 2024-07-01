@@ -21,7 +21,7 @@ function Tile(props) {
         <Card.Text>Subject : {props.subject}</Card.Text>
         <Card.Text>Topic : {props.topic}</Card.Text>
         <Card.Text>Date : {props.date}</Card.Text>
-        {isClicked ? <ViewSolutionDiv title={props.title} subject={props.subject} topic={props.topic} q_url={props.image} sol_url={props.sol_url} /> : null}
+        {isClicked ? <ViewSolutionDiv submit_function={props.submit_function} hide_function={handleClick} title={props.title} subject={props.subject} topic={props.topic} q_url={props.image} sol_url={props.sol_image} /> : null}
         <Button className='btn-tile' onClick={handleClick} variant="outline-dark ">Expand</Button>
       </Card.Body>
     </Card>

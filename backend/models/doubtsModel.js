@@ -8,7 +8,7 @@ q_url:{type:String,required:true},
 title:{type:String,required:true},
 subject:{type:String,required:true},
 topic:{type:String,required:true},
-sol_url:{type:String,required:true},
+sol_url:{type:String},
 date:{type:String,required:true}
 });
 
