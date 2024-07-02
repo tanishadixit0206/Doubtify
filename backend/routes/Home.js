@@ -46,6 +46,25 @@ router.put("/update",requireAuth,async(req,res)=>{
   }
 })
 
+router.get("/select/:title",requireAuth, async (req,res)=>{
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.split(' ')[1];
+      const { id } = jsonwebtoken.verify(token, JWT_SECRET);
+      const title = req.params.title
+      const response = await doubts.findOne({username:id,title:title})
+      res.json(response)
+    } else {
+      throw new Error("Authorization header missing");
+    }
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "error" });
+  }
+})
+
+
 router.post("/filter", requireAuth, async (req, res) => {
   try {
     const { authorization } = req.headers;

@@ -200,7 +200,7 @@ function ViewSolutionDiv(props) {
         }
     }
     return (
-        <div style={{top:"10vh", position: "fixed",borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
+        <div style={{top:"11vh",left:"19vw", position: "fixed",borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
             <div style={{ width: "100%", textAlign: "center",alignItems:"center", backgroundColor: "rgb(113, 44, 249)",display:"flex",justifyContent:"space-between" }} className="mb-3 px-2">
              <div style={{flex:"80%"}}>
              <h1 style={{ color: "white" }} className="add-solution-heading my-3 ">Update Doubt</h1>
