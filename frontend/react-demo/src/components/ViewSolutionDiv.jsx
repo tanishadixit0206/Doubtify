@@ -200,7 +200,7 @@ function ViewSolutionDiv(props) {
         }
     }
     return (
-        <div style={{top:"10vh", position: "fixed", zIndex:"4000",borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
+        <div style={{top:"10vh", position: "fixed",borderRadius: "1%", padding: "0", backgroundColor: "rgb(240,240,240)", height: "80vh", overflowY: "scroll", scrollBehavior: "smooth", borderStyle: "solid", borderWidth: "1px", borderColor: "rgb(113, 44, 249)", color: "rgb(113, 44, 249)" }} className="container d-flex flex-column justify-content-start align-items-center col-lg-9 col-md-7 col-sm-6 col-xs-10 my-3 pb-3">
             <div style={{ width: "100%", textAlign: "center",alignItems:"center", backgroundColor: "rgb(113, 44, 249)",display:"flex",justifyContent:"space-between" }} className="mb-3 px-2">
              <div style={{flex:"80%"}}>
              <h1 style={{ color: "white" }} className="add-solution-heading my-3 ">Update Doubt</h1>
@@ -217,13 +217,13 @@ function ViewSolutionDiv(props) {
                 </label>
             </div>
 
-            <div style={{zIndex:"4000"}} className="form-container">
+            <div className="form-container">
                 <input required type="text" readOnly onChange={onChange} name="title" value={props.title} style={{ color: "rgb(113, 44, 249)", borderColor: "rgb(180,180,180)", backgroundColor: "rgba(0,0,0,0)" }} class="form-control px-3 py-4 my-3" id="floatingInput" Autocomplete="off" placeholder="Title" />
                 <Autocomplete required
                     className="my-3"
                     options={values}
-                    value={props.subject}
-                    style={{ width: "60vw",zIndex:"6000" }}
+                    value={doubt.subject}
+                    style={{ width: "60vw"}}
                     renderInput={(params) => (
                         <TextField name="subject" onSelect={onChange} {...params} label="Subject" variant="outlined" />
                     )}
@@ -231,25 +231,13 @@ function ViewSolutionDiv(props) {
                 <Autocomplete required
                     className="my-3"
                     options={options}
-                    value={props.topic}
-                    style={{ width: "60vw" ,zIndex:"6000"}}
+                    value={doubt.topic}
+                    style={{ width: "60vw"}}
                     renderInput={(params) => (
                         <TextField name="topic" onSelect={onChange} {...params} label="Topic" variant="outlined" />
                     )}
                 />
             </div>
-            {/* <div class="dropzone d-block">
-                <label for="files2" class="dropzone-container">
-                    <div>
-                        <div class="file-icon"><i class="fa-solid fa-file-circle-plus text-primary"></i></div>
-                        <div class="text-center pt-3 px-5">
-                            <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
-                            <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
-                            </div>
-                    </div>
-                </label>
-                <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
-            </div> */}
             <div class="dropzone d-block">
                 <label for="files2" class="dropzone-container">
                     <img src={postImage2.myFile2} alt="" />
