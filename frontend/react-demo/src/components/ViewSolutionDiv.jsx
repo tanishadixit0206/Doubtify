@@ -212,7 +212,7 @@ function ViewSolutionDiv(props) {
 
             <div class="dropzone d-block">
                 <label for="files1" class="dropzone-container">
-                    <img src={postImage1.myFile1} alt="" />
+                    <img src={postImage1.myFile1} alt="" style={{width:"100%",height:"auto"}} />
                     <input id="files1" onChange={handlePicInsert1} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
                 </label>
             </div>
@@ -240,10 +240,14 @@ function ViewSolutionDiv(props) {
             </div>
             <div class="dropzone d-block">
                 <label for="files2" class="dropzone-container">
-                    <img src={postImage2.myFile2} alt="" />
-               
+                {postImage2.myFile2 === "" ? <div>
+                        <div class="file-icon"><i class="fa-solid fa-file-circle-plus text-primary"></i></div>
+                        <div class="text-center pt-3 px-5">
+                            <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
+                            <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
+                            </div>
+                    </div> : <img src={postImage2.myFile2} alt="" style={{width:"100%",height:"auto"}} />}
                 <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
-           
            </label>
             </div>
 

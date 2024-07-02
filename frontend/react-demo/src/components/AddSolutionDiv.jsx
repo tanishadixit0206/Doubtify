@@ -213,7 +213,7 @@ function AddSolutionDiv(props) {
                             <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
                             <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
                             
-                    </div> </div>: <img src={postImage1.myFile1} alt="" />}
+                    </div> </div>: <img src={postImage1.myFile1} alt="" style={{width:"100%",height:"auto"}}/>}
                     <input id="files1" onChange={handlePicInsert1} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
                 </label>
             </div>
@@ -246,7 +246,7 @@ function AddSolutionDiv(props) {
                             <p class="w-80 h5 text-dark fw-bold">To add a doubt</p>
                             <p class="w-80 h5 text-dark fw-bold">Drag your documents, photos or videos here to start uploading.</p>
                             </div>
-                    </div> : <img src={postImage2.myFile2} alt="" />}
+                    </div> : <img src={postImage2.myFile2} alt="" style={{width:"100%",height:"auto"}} />}
                 </label>
                 <input id="files2" onChange={handlePicInsert2} name="files[]" type="file" class="file-input" accept=".jpeg,.jpg,.png" />
             </div>

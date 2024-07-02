@@ -30,12 +30,11 @@ function LoginForm() {
     
         try {
             
-          const response = await axios.post("http://localhost:5000/login", user);// Assuming successful response has data
+          const response = await axios.post("http://localhost:5000/login", user);
           console.log(response)  
           if (response.data.auth) {
             localStorage.setItem("token",response.data.token)
             dispatch({type:'LOGIN',payload:response.data})
-            // Handle successful registration (e.g., navigate to login page, show success message)
             navigate("/home");
           } else {
             setError("Login failed. Please try again.");

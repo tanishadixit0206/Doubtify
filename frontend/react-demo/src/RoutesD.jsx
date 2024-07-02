@@ -4,7 +4,6 @@ import Home from "./Pages/HomePage";
 import StartPage from "./Pages/Startpage";
 import LoginPage from "./Pages/LoginPage"
 import RegisterPage from "./Pages/RegisterPage"
-import { AuthContextProvider } from "./context/AuthContext";
 import { useAuthContext } from "./hooks/UseAuthContext";
 
 function RoutesD() {
