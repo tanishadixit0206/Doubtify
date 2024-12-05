@@ -18,6 +18,7 @@ function AddSolutionDiv(props) {
 
     const { user } = useAuthContext()
 
+//Converting file to base64
     function convertToBase64(file) {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader()
@@ -31,7 +32,7 @@ function AddSolutionDiv(props) {
         })
 
     }
-
+//handling image file 1
     async function handlePicInsert1(e) {
         const file = e.target.files[0]
         const base64 = await convertToBase64(file)
@@ -39,7 +40,7 @@ function AddSolutionDiv(props) {
         setPostImage1({ ...postImage1, myFile1: base64 })
         setPic1(true)
     }
-
+//handling image file 2
     async function handlePicInsert2(e) {
         const file = e.target.files[0]
         const base64 = await convertToBase64(file)
@@ -47,9 +48,10 @@ function AddSolutionDiv(props) {
         setPostImage2({ ...postImage2, myFile2: base64 })
         setPic2(true)
     }
-
+//Uploading doubt to backend
     async function handleSubmit() {
         var dup = false;
+        //Checking if duplicate doubt exists
         try {
             const response1 = await axios.get("http://localhost:5000/home", {
                 headers: {
@@ -174,6 +176,7 @@ function AddSolutionDiv(props) {
 
     const values = ["All", "Physics", "Chemistry", "Maths", "Biology"];
 
+    //autocomplete logic
     useEffect(() => {
         let options;
         switch (value) {

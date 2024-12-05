@@ -58,7 +58,7 @@
         const [isClicked2,setIsClicked2] = useState(false)
 
 
-
+//fetching doubts from backend
         const getDoubts = async ()=>{
             const response  =  await axios.get("http://localhost:5000/home",{headers:{
             'Authorization':`Bearer ${user}`

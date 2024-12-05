@@ -18,6 +18,7 @@ function LoginForm() {
 
     const [error,setError] = useState("")
 
+    //Sending login details to backend
     async function handleSubmit(event) {
         event.preventDefault(); 
     

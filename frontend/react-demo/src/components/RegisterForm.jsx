@@ -16,6 +16,7 @@ function RegisterForm() {
 
     const [error, setError] = useState(null); // To store error messages
 
+    //Sending registration details to backend
     async function handleSubmit(event) {
       event.preventDefault();
       console.log(user) // Prevent default form submission
